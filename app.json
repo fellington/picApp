@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "picApp",
-    "slug": "picApp",
+    "slug": "picapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,10 +18,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.herolab.picApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "bb9abba9-05d1-4cc4-a2cc-208671e627c4"
+      }
+    },
+    "owner": "fellington"
   }
 }
