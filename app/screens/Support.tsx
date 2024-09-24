@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, View, Text, TouchableOpacity, StyleSheet, ScrollView} from 'react-native';
+import {SafeAreaView, View, Text, TouchableOpacity, StyleSheet, ScrollView, Linking} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const Support = () => {
@@ -10,14 +10,18 @@ const Support = () => {
       <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
         <Text style={styles.backButtonText}>Back</Text>
       </TouchableOpacity>
-        <ScrollView>
+      <ScrollView>
         <View style={styles.container}>
           <Text style={styles.text}>
             This app was created as patient education for the Preeclampsia Educational 
             Project Study (PrEPS) - MHS 461-24
           </Text>
           <Text style={styles.text}>
-            For concerns about this study, please contact Alice Sherman-Brown aliceb@hs.uci.edu 
+            For concerns about this study, please contact Alice Sherman-Brown
+           </Text>
+           <Text style={styles.emailText} // Styling to make it look like a link
+              onPress={() => Linking.openURL('mailto:aliceb@hs.uci.edu?')}>
+            aliceb@hs.uci.edu 
           </Text>
           <Text style={styles.text}>
             For health concerns, please contact your doctor's office directly
@@ -46,7 +50,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 40,
+    top: 70,
     left: 20,
     zIndex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.6)', // Semi-transparent background
@@ -61,7 +65,13 @@ const styles = StyleSheet.create({
     fontSize:30,
     textAlign: 'center',
     color: 'black',
-    marginTop: 50,
-    marginHorizontal:10,
+    marginTop: 70,
+    marginHorizontal:5,
+  },
+  emailText: {
+    fontSize:30,
+    textAlign: 'center',
+    color: 'blue',
+    marginHorizontal:5,
   }
 });
