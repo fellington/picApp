@@ -13,7 +13,7 @@ function InsideLayout() {
     <InsideStack.Navigator>
       <InsideStack.Screen name = "Home Page" component={HomePage} options={{headerShown: false}}/>
       <InsideStack.Screen name = "Instructions" component={InstrImages} options={{headerShown: false}}/>
-      <InsideStack.Screen name = "support" component={Support} options={{headerShown: false}}/>
+      <InsideStack.Screen name = "Support" component={Support} options={{headerShown: false}}/>
     </InsideStack.Navigator>
   )
 }

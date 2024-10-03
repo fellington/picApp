@@ -4,7 +4,7 @@
     "slug": "picapp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/preps_i.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -17,8 +17,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/preps_i.png",
+        "backgroundColor": "#AAE0D0"
       },
       "package": "com.herolab.picApp"
     },
@@ -30,6 +30,9 @@
         "projectId": "bb9abba9-05d1-4cc4-a2cc-208671e627c4"
       }
     },
-    "owner": "fellington"
+    "owner": "fellington",
+    "plugins": [
+      "expo-router"
+    ]
   }
 }

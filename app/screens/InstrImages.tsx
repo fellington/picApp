@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { View, Image, Dimensions, StyleSheet, FlatList, TouchableOpacity, Text } from 'react-native';
+import React from 'react';
+import { View, Image, Dimensions, StyleSheet, FlatList, TouchableOpacity, Text, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window'); // Get the window dimensions
 
 // Define the image data type
 type ImageData = {
@@ -29,7 +29,6 @@ const images: ImageData[] = [
 
 const InstrImages = () => {
   const navigation = useNavigation(); // Access navigation object
-  const [showOverlay, setShowOverlay] = useState(true); // State to control instruction overlay
 
   // Define the renderItem function to display local images
   const renderItem = ({ item }: { item: ImageData }) => (
@@ -40,30 +39,19 @@ const InstrImages = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* Custom back button at the top of the screen */}
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-        <Text style={styles.backButtonText}>Back</Text>
-      </TouchableOpacity>
-
-      {/* Instruction overlay */}
-      {showOverlay && (
-        <View style={styles.overlay}>
-          <Text style={styles.overlayText}>Swipe left (back) or right (forward) to navigate images.</Text>
-          <TouchableOpacity onPress={() => setShowOverlay(false)}>
-            <Text style={styles.dismissText}>Got it!</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-
-      {/* Swipable image list */}
+      {/* Vertical scrollable image list */}
       <FlatList
         data={images}
         renderItem={renderItem}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={{ paddingBottom: 100 }} // Add padding to prevent images from getting hidden under the button
       />
+
+      {/* Custom back button that overlays the FlatList */}
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+        <Text style={styles.backButtonText}>Back</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -71,52 +59,28 @@ const InstrImages = () => {
 export default InstrImages;
 
 const styles = StyleSheet.create({
+  // Use a flexbox container to ensure centering
   imageContainer: {
-    width, // Full screen width for swiping
+    width: '100%', // Full width for both platforms
     justifyContent: 'center',
     alignItems: 'center',
   },
   image: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
+    width: Platform.OS === 'web' ? '100%' : width, // Full width on web, match device width on mobile
+    height: Platform.OS === 'web' ? height : (width * 3) / 4, // Maintain aspect ratio for mobile
+    resizeMode: 'contain', // Ensure the entire image is visible without being cropped
   },
   backButton: {
     position: 'absolute',
-    top: 70,
+    top: 20,
     left: 20,
     zIndex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)', // Semi-transparent background
+    backgroundColor: 'rgba(0, 0, 0, 0.4)', // Semi-transparent background
     padding: 10,
     borderRadius: 5,
   },
   backButtonText: {
     color: 'white',
-    fontSize: 10,
-  },
-  overlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    zIndex: 2, // Make sure the overlay is on top
-  },
-  overlayText: {
-    color: 'white',
-    fontSize: 20,
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  dismissText: {
-    color: '#00aced',
-    fontSize: 18,
-    padding: 10,
-    borderColor: '#00aced',
-    borderWidth: 1,
-    borderRadius: 5,
+    fontSize: Platform.OS === 'web' ? 10 : 5,
   },
 });
